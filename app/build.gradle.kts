@@ -85,4 +85,9 @@ dependencies {
     implementation(libs.dagger.hilt.android)
     kapt(libs.hilt.android.compiler)
     implementation(libs.hilt.navigation.compose)
+
+    // Retrofit
+    implementation(libs.squareup.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
 }
