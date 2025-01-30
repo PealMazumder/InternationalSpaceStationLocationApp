@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.peal.spacestationapp.ui.home.HomeScreen
+import com.peal.spacestationapp.ui.home.HomeViewModel
 import com.peal.spacestationapp.ui.login.LoginScreen
 import com.peal.spacestationapp.ui.login.LoginViewModel
 
@@ -41,6 +42,7 @@ fun NavGraph(
         }
 
         composable<Screens.HomeScreen> {
+            val viewModel: HomeViewModel = hiltViewModel()
             HomeScreen()
         }
     }
