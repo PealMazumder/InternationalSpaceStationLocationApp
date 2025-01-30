@@ -42,8 +42,12 @@ fun NavGraph(
         }
 
         composable<Screens.HomeScreen> {
-            val viewModel: HomeViewModel = hiltViewModel()
-            HomeScreen()
+            val homeViewModel: HomeViewModel = hiltViewModel()
+            val homeState by homeViewModel.homeState.collectAsStateWithLifecycle()
+            HomeScreen(
+                modifier,
+                homeState
+            )
         }
     }
 }

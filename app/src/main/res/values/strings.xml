@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">SpaceStationApp</string>
     <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="refresh">Refresh</string>
+    <string name="local_time">Local Time: %1$s</string>
+    <string name="utc_time">UTC Time: %1$s</string>
+    <string name="refresh_countdown">Refresh Countdown</string>
+    <string name="latitude_longitude">Latitude: %1$s | Longitude: %2$s</string>
+    <string name="country">Country</string>
 </resources>
