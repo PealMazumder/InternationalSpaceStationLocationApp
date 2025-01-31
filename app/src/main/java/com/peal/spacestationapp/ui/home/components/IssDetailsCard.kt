@@ -14,14 +14,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.peal.spacestationapp.R
 import com.peal.spacestationapp.ui.common.CustomHorizontalDivider
-import com.peal.spacestationapp.ui.home.HomeEvent
+import com.peal.spacestationapp.ui.home.HomeIntent
 import com.peal.spacestationapp.ui.home.HomeScreenState
 
 
 @Composable
 fun IssDetailsCard(
     homeScreenState: HomeScreenState,
-    onEvent: (HomeEvent) -> Unit,
+    onIntent: (HomeIntent) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -74,7 +74,7 @@ fun IssDetailsCard(
         )
 
         Button(
-            onClick = { onEvent(HomeEvent.RefreshClick) },
+            onClick = { onIntent(HomeIntent.RefreshClick) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp),

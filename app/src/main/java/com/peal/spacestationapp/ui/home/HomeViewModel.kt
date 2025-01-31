@@ -106,9 +106,9 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun handleHomeEvent(event: HomeEvent) {
+    fun handleHomeIntent(event: HomeIntent) {
         when (event) {
-            is HomeEvent.RefreshClick -> onRefreshClick()
+            is HomeIntent.RefreshClick -> onRefreshClick()
         }
     }
 

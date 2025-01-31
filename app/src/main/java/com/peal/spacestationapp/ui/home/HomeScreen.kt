@@ -32,7 +32,7 @@ import com.peal.spacestationapp.ui.home.components.IssDetailsCard
 fun HomeScreen(
     modifier: Modifier,
     homeState: HomeScreenState,
-    onEvent: (HomeEvent) -> Unit,
+    onIntent: (HomeIntent) -> Unit,
 ) {
     val context = LocalContext.current
     var isToastShown by remember { mutableStateOf(false) }
@@ -61,8 +61,8 @@ fun HomeScreen(
             ) {
                 IssDetailsCard(
                     homeState,
-                    onEvent = {
-                        onEvent(it)
+                    onIntent = {
+                        onIntent(it)
                     }
                 )
             }

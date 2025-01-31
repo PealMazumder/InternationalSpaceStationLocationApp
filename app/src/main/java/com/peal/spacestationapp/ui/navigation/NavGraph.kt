@@ -50,8 +50,8 @@ fun NavGraph(
             HomeScreen(
                 modifier,
                 homeState,
-                onEvent = { homeEvent ->
-                    homeViewModel.handleHomeEvent(homeEvent)
+                onIntent = { homeEvent ->
+                    homeViewModel.handleHomeIntent(homeEvent)
                 }
             )
         }
