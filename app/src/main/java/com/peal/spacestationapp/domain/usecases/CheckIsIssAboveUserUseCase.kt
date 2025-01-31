@@ -1,5 +1,6 @@
 package com.peal.spacestationapp.domain.usecases
 
+import android.util.Log
 import javax.inject.Inject
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -33,6 +34,7 @@ class CheckIsIssAboveUserUseCase @Inject constructor() {
         radiusKm: Double = 500.0
     ): Boolean {
         val distance = calculateDistance(issLat, issLong, userLat, userLong)
+        Log.d("ISS", "distance: $distance")
         return distance <= radiusKm
     }
 

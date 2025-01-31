@@ -12,9 +12,11 @@ import com.peal.spacestationapp.domain.usecases.GetIssCurrentLocationUseCase
 import com.peal.spacestationapp.ui.home.model.toIssLocationInfoUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -36,6 +38,11 @@ class HomeViewModel @Inject constructor(
     val homeState: StateFlow<HomeScreenState> = _homeState
     private var userLatitude: Double = 0.0
     private var userLongitude: Double = 0.0
+
+    private var isShowAboveCountryToast = true
+
+    private val _events = Channel<HomeEvent>()
+    val events = _events.receiveAsFlow()
 
     private var countdownJob: Job? = null
 
@@ -62,18 +69,23 @@ class HomeViewModel @Inject constructor(
             getIssCurrentLocationUseCase.invoke().onSuccess { issLocInfo ->
                 getCountryFromLatLngUseCase.invoke(issLocInfo.latitude, issLocInfo.longitude)
                     .onSuccess { country ->
-
+                        val isAboveCountry = checkIsIssAboveUserUseCase.invoke(
+                            issLocInfo.latitude,
+                            issLocInfo.longitude,
+                            userLatitude,
+                            userLongitude
+                        )
                         _homeState.update {
                             it.copy(
                                 isLoading = false,
                                 issLocationInfo = issLocInfo.toIssLocationInfoUi(country),
-                                isAboveCountry = checkIsIssAboveUserUseCase.invoke(
-                                    issLocInfo.latitude,
-                                    issLocInfo.longitude,
-                                    userLatitude,
-                                    userLongitude
-                                )
+                                isAboveCountry = isAboveCountry
                             )
+                        }
+
+                        if (isAboveCountry && isShowAboveCountryToast) {
+                            _events.send(HomeEvent.ShowIssAboveToast)
+                            isShowAboveCountryToast = false
                         }
                         startCountdown()
                     }
