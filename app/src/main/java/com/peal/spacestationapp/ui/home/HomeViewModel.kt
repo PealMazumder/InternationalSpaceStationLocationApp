@@ -104,7 +104,7 @@ class HomeViewModel @Inject constructor(
     private fun startCountdown() {
         countdownJob?.cancel()
         countdownJob = viewModelScope.launch {
-            for (countDownTime in 10 downTo 0) {
+            for (countDownTime in 60 downTo 0) {
                 _homeState.update { it.copy(countDownTime = countDownTime.toString()) }
                 if (countDownTime != 0)
                     delay(1000)
