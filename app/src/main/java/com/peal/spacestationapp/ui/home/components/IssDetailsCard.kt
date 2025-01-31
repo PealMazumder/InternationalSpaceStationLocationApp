@@ -28,7 +28,7 @@ fun IssDetailsCard(
             .padding(10.dp)
     ) {
         Text(
-            text = stringResource(R.string.country),
+            text = homeScreenState.issLocationInfo.country,
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.padding(bottom = 8.dp)
@@ -44,7 +44,7 @@ fun IssDetailsCard(
             text = stringResource(
                 R.string.latitude_longitude,
                 homeScreenState.issLocationInfo.latitude,
-                homeScreenState.issLocationInfo.latitude
+                homeScreenState.issLocationInfo.longitude
             ),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurface,

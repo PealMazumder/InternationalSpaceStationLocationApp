@@ -17,11 +17,12 @@ data class IssLocationInfoUi(
     val country: String = "",
 )
 
-fun IssLocationInfo.toIssLocationInfoUi(): IssLocationInfoUi {
+fun IssLocationInfo.toIssLocationInfoUi(countryName: String?): IssLocationInfoUi {
     return IssLocationInfoUi(
         latitude = latitude.toString(),
         longitude = longitude.toString(),
         localTime = timeStamp.toFormattedTime(),
-        utcTime = timeStamp.toFormattedTime(ZoneId.of("UTC"))
+        utcTime = timeStamp.toFormattedTime(ZoneId.of("UTC")),
+        country = countryName ?: ""
     )
 }

@@ -7,4 +7,6 @@
     <string name="refresh_countdown">Refresh Countdown</string>
     <string name="latitude_longitude">Latitude: %1$s | Longitude: %2$s</string>
     <string name="country">Country</string>
+    <string name="unknown">Unknown</string>
+    <string name="geocoder_error">Geocoder error</string>
 </resources>
