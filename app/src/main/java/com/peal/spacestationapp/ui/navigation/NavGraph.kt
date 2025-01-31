@@ -22,10 +22,11 @@ import com.peal.spacestationapp.ui.login.LoginViewModel
 fun NavGraph(
     navController: NavHostController = rememberNavController(),
     modifier: Modifier,
+    isAuthenticated: Boolean
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screens.LoginScreen
+        startDestination = if (isAuthenticated) Screens.HomeScreen else Screens.LoginScreen
     ) {
         composable<Screens.LoginScreen> {
             val viewModel: LoginViewModel = hiltViewModel()
