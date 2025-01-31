@@ -8,6 +8,8 @@ import com.peal.spacestationapp.core.domain.util.onSuccess
 import com.peal.spacestationapp.domain.usecases.GetIssCurrentLocationUseCase
 import com.peal.spacestationapp.ui.home.model.toIssLocationInfoUi
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -26,7 +28,14 @@ class HomeViewModel @Inject constructor(
     private val _homeState = MutableStateFlow(HomeScreenState())
     val homeState: StateFlow<HomeScreenState> = _homeState
 
+    private var countdownJob: Job? = null
+
     init {
+        startCountdown()
+        fetchISSLocation()
+    }
+
+    private fun fetchISSLocation() {
         viewModelScope.launch {
             getIssCurrentLocationUseCase.invoke().onSuccess { issLocInfo ->
                 _homeState.update {
@@ -35,10 +44,33 @@ class HomeViewModel @Inject constructor(
                         issLocationInfo = issLocInfo.toIssLocationInfoUi()
                     )
                 }
+                startCountdown()
             }.onError {
                 Log.d("ISS", "Failed $it")
             }
 
         }
+    }
+
+    private fun startCountdown() {
+        countdownJob?.cancel()
+        countdownJob = viewModelScope.launch {
+            for (i in 60 downTo 0) {
+                _homeState.update { it.copy(countDownTime = i.toString()) }
+                delay(1000)
+            }
+            fetchISSLocation()
+        }
+    }
+
+    fun handleHomeEvent(event: HomeEvent) {
+        when (event) {
+            is HomeEvent.RefreshClick -> onRefreshClick()
+        }
+    }
+
+    private fun onRefreshClick() {
+        countdownJob?.cancel()
+        fetchISSLocation()
     }
 }

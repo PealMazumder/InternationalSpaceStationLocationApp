@@ -13,13 +13,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.peal.spacestationapp.R
+import com.peal.spacestationapp.ui.home.HomeEvent
 import com.peal.spacestationapp.ui.home.HomeScreenState
 
 
 @Composable
 fun IssDetailsCard(
     homeScreenState: HomeScreenState,
-    onRefreshClick: () -> Unit
+    onEvent: (HomeEvent) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -62,7 +63,7 @@ fun IssDetailsCard(
 
 
         Text(
-            text = homeScreenState.refreshTime,
+            text = homeScreenState.countDownTime,
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.Center,
@@ -72,7 +73,7 @@ fun IssDetailsCard(
         )
 
         Button(
-            onClick = onRefreshClick,
+            onClick = { onEvent(HomeEvent.RefreshClick) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp),

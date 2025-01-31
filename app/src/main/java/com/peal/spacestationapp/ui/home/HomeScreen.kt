@@ -19,7 +19,8 @@ import com.peal.spacestationapp.ui.home.components.IssDetailsCard
 @Composable
 fun HomeScreen(
     modifier: Modifier,
-    homeState: HomeScreenState
+    homeState: HomeScreenState,
+    onEvent: (HomeEvent) -> Unit,
 ) {
     Column(
         modifier = modifier.padding(16.dp)
@@ -36,8 +37,8 @@ fun HomeScreen(
             ) {
                 IssDetailsCard(
                     homeState,
-                    onRefreshClick = {
-
+                    onEvent = {
+                        onEvent(it)
                     }
                 )
             }

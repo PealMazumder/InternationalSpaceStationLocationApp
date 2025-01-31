@@ -46,7 +46,10 @@ fun NavGraph(
             val homeState by homeViewModel.homeState.collectAsStateWithLifecycle()
             HomeScreen(
                 modifier,
-                homeState
+                homeState,
+                onEvent = { homeEvent ->
+                    homeViewModel.handleHomeEvent(homeEvent)
+                }
             )
         }
     }

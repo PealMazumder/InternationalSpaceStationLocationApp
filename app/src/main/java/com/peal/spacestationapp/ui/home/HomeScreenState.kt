@@ -12,5 +12,5 @@ import com.peal.spacestationapp.ui.home.model.IssLocationInfoUi
 data class HomeScreenState(
     val isLoading: Boolean = false,
     val issLocationInfo: IssLocationInfoUi = IssLocationInfoUi(),
-    val refreshTime: String = "",
+    val countDownTime: String = "",
 )
