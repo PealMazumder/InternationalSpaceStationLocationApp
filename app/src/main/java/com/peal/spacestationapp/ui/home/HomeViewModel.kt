@@ -38,6 +38,7 @@ class HomeViewModel @Inject constructor(
 
     private fun fetchISSLocation() {
         viewModelScope.launch {
+            _homeState.update { it.copy(isLoading = true) }
             getIssCurrentLocationUseCase.invoke().onSuccess { issLocInfo ->
                 getCountryFromLatLngUseCase.invoke(issLocInfo.latitude, issLocInfo.longitude)
                     .onSuccess { country ->
@@ -51,11 +52,12 @@ class HomeViewModel @Inject constructor(
                     }
                     .onFailure { error ->
                         Log.d("ISS", "Failed to get country: $error")
+                        _homeState.update { it.copy(isLoading = false) }
                         startCountdown()
                     }
             }.onError { error ->
                 Log.d("ISS", "Failed to get ISS location: $error")
-                // TODO: Handle error
+                _homeState.update { it.copy(isLoading = false) }
             }
         }
     }
@@ -63,9 +65,15 @@ class HomeViewModel @Inject constructor(
     private fun startCountdown() {
         countdownJob?.cancel()
         countdownJob = viewModelScope.launch {
-            for (i in 60 downTo 0) {
-                _homeState.update { it.copy(countDownTime = i.toString()) }
-                delay(1000)
+            for (countDownTime in 10 downTo 0) {
+                _homeState.update { it.copy(countDownTime = countDownTime.toString()) }
+                if (countDownTime != 0)
+                    delay(1000)
+                else {
+                    delay(500)
+                    _homeState.update { it.copy(countDownTime = "") }
+                }
+
             }
             fetchISSLocation()
         }
