@@ -1,6 +1,8 @@
 package com.peal.spacestationapp.di
 
+import com.peal.spacestationapp.data.location.LocationTrackerImpl
 import com.peal.spacestationapp.data.repositoryImpl.IssRepositoryImpl
+import com.peal.spacestationapp.domain.location.LocationTracker
 import com.peal.spacestationapp.domain.repository.IssRepository
 import dagger.Binds
 import dagger.Module
@@ -19,4 +21,8 @@ abstract class IssRepositoryModule {
     @Binds
     @Singleton
     abstract fun bindIssRepository(issRepositoryImpl: IssRepositoryImpl): IssRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindLocationTracker(locationTracker: LocationTrackerImpl): LocationTracker
 }

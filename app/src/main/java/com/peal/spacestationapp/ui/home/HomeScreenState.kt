@@ -13,4 +13,5 @@ data class HomeScreenState(
     val isLoading: Boolean = false,
     val issLocationInfo: IssLocationInfoUi = IssLocationInfoUi(),
     val countDownTime: String = "",
+    val isAboveCountry: Boolean = false
 )

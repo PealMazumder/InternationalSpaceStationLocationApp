@@ -9,4 +9,5 @@
     <string name="country">Country</string>
     <string name="unknown">Unknown</string>
     <string name="geocoder_error">Geocoder error</string>
+    <string name="the_space_station_is_above_your_country_now">The Space Station is above your Country Now!!</string>
 </resources>
