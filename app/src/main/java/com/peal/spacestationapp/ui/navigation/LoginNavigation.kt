@@ -12,7 +12,9 @@ class LoginNavigation(private val navController: NavHostController) {
     fun onNavigation(loginNavigationEvent: LoginNavigationEvent) {
         when (loginNavigationEvent) {
             is LoginNavigationEvent.OnNavigateHome -> {
-                navController.navigate(Screens.HomeScreen)
+                navController.navigate(Screens.HomeScreen) {
+                    popUpTo(Screens.LoginScreen) { inclusive = true }
+                }
             }
         }
     }
