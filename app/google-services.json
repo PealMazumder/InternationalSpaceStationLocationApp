@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "662442690459",
+    "project_id": "spacestationapp-4c900",
+    "storage_bucket": "spacestationapp-4c900.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662442690459:android:2848b91395281b0b68033e",
+        "android_client_info": {
+          "package_name": "com.peal.spacestationapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662442690459-s1avhi8pdo9pblnl6n216g3rlf5q3tka.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.peal.spacestationapp",
+            "certificate_hash": "9ec8c1fd8ac0c8d30fe0c38c1e998e874a69080c"
+          }
+        },
+        {
+          "client_id": "662442690459-v3np64fot6eni287q2uukga4j7d3hbo5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7ZPj50cAhc8QQLzO0IwofxBWpHSLDBqQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662442690459-v3np64fot6eni287q2uukga4j7d3hbo5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
