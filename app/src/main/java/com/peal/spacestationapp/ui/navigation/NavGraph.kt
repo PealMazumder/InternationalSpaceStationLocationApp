@@ -34,7 +34,9 @@ fun NavGraph(
             LoginScreen(
                 modifier,
                 loginState,
-                viewModel,
+                onIntent = {
+                    viewModel.onIntent(it)
+                },
                 onNavigation = {
                     navigation.onNavigation(it)
                 }

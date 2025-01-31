@@ -1,6 +1,6 @@
 package com.peal.spacestationapp.di
 
-import com.peal.spacestationapp.data.repositoryImpl.AccountSAuthenticationRepositoryImpl
+import com.peal.spacestationapp.data.repositoryImpl.AuthenticationRepositoryImpl
 import com.peal.spacestationapp.domain.repository.AuthenticationRepository
 import dagger.Binds
 import dagger.Module
@@ -18,5 +18,5 @@ import javax.inject.Singleton
 abstract class AuthenticationModule {
     @Binds
     @Singleton
-    abstract fun bindAuthenticationRepository(authenticationRepositoryImpl: AccountSAuthenticationRepositoryImpl): AuthenticationRepository
+    abstract fun bindAuthenticationRepository(authenticationRepositoryImpl: AuthenticationRepositoryImpl): AuthenticationRepository
 }

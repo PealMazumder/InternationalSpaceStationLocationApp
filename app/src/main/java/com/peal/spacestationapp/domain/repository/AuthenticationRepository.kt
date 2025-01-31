@@ -6,5 +6,5 @@ package com.peal.spacestationapp.domain.repository
  */
 
 interface AuthenticationRepository {
-    suspend fun authenticateWithGoogle(idToken: String)
+    suspend fun authenticate(idToken: String): Result<Boolean>
 }

@@ -1,8 +1,9 @@
 package com.peal.spacestationapp.ui.login
 
-import androidx.credentials.Credential
+import android.content.Context
+import com.peal.spacestationapp.domain.model.AuthenticationType
 
 
-sealed interface LoginScreenIntent {
-    data class OnSignInRequestResult(val credential: Credential) : LoginScreenIntent
+sealed class LoginScreenIntent {
+    data class OnSignInRequest(val authType: AuthenticationType, val context: Context) : LoginScreenIntent()
 }

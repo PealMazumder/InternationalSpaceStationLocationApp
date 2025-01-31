@@ -12,9 +12,19 @@ import javax.inject.Inject
  * Created by Peal Mazumder on 30/1/25.
  */
 
-class AccountSAuthenticationRepositoryImpl @Inject constructor() : AuthenticationRepository {
-    override suspend fun authenticateWithGoogle(idToken: String) {
-        val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
-        Firebase.auth.signInWithCredential(firebaseCredential).await()
+class AuthenticationRepositoryImpl @Inject constructor() : AuthenticationRepository {
+    override suspend fun authenticate(idToken: String): Result<Boolean> {
+        return try {
+            val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
+            val authResult = Firebase.auth.signInWithCredential(firebaseCredential).await()
+            val user = authResult.user
+            if (user != null) {
+                Result.success(true)
+            } else {
+                Result.failure(Exception("Authentication failed, user is null"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 }

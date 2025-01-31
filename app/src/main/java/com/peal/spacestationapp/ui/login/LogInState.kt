@@ -10,5 +10,5 @@ import androidx.compose.runtime.Immutable
 @Immutable
 data class LogInState(
     val isSignInSuccessful: Boolean = false,
-    val signInError: String? = null
+    val signInError: String? = null,
 )

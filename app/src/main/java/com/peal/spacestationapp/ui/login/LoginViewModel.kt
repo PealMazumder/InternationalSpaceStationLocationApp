@@ -1,16 +1,11 @@
 package com.peal.spacestationapp.ui.login
 
-import android.util.Log
-import androidx.credentials.Credential
-import androidx.credentials.CustomCredential
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
-import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential.Companion.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
-import com.peal.spacestationapp.Constants.ERROR_TAG
-import com.peal.spacestationapp.domain.repository.AuthenticationRepository
+import com.peal.spacestationapp.domain.model.AuthenticationType
+import com.peal.spacestationapp.domain.usecases.AuthenticationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -23,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val authenticationRepository: AuthenticationRepository
+    private val authenticationUseCase: AuthenticationUseCase,
+    private val googleAuthUiClient: GoogleAuthUiClient
 ) : ViewModel() {
     private val _signInState = MutableStateFlow(LogInState())
     val signInState: StateFlow<LogInState> = _signInState
@@ -31,25 +27,35 @@ class LoginViewModel @Inject constructor(
 
     fun onIntent(intent: LoginScreenIntent) {
         when (intent) {
-            is LoginScreenIntent.OnSignInRequestResult -> {
-                onSignInWithGoogle(intent.credential)
+            is LoginScreenIntent.OnSignInRequest -> {
+                when (intent.authType) {
+                    AuthenticationType.Google -> {
+                        startGoogleSignIn(intent.context)
+                    }
+                }
+
             }
         }
     }
 
-    private fun onSignInWithGoogle(credential: Credential) {
-        viewModelScope.launch(CoroutineExceptionHandler { _, _ -> }) {
-            if (credential is CustomCredential && credential.type == TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
-                val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
-                authenticationRepository.authenticateWithGoogle(googleIdTokenCredential.idToken)
-                _signInState.value = _signInState.value.copy(
-                    isSignInSuccessful = true
-                )
-            } else {
-                Log.d(ERROR_TAG, "Invalid credential type")
-            }
+    private fun startGoogleSignIn(context: Context) {
+        viewModelScope.launch {
 
+            googleAuthUiClient.getIdToken(context, true)
+                .onSuccess { idToken ->
+                    authenticationUseCase.invoke(idToken)
+                        .onSuccess {
+                            _signInState.value = _signInState.value.copy(
+                                isSignInSuccessful = true,
+                            )
+                        }.onFailure {
+
+                        }
+
+                }
+                .onFailure {
+
+                }
         }
     }
-
 }
