@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.peal.spacestationapp.R
+import com.peal.spacestationapp.ui.common.CustomHorizontalDivider
 import com.peal.spacestationapp.ui.home.HomeEvent
 import com.peal.spacestationapp.ui.home.HomeScreenState
 

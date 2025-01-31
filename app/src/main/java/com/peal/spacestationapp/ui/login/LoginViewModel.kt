@@ -8,6 +8,7 @@ import com.peal.spacestationapp.domain.usecases.AuthenticationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -40,6 +41,7 @@ class LoginViewModel @Inject constructor(
 
     private fun startGoogleSignIn(context: Context) {
         viewModelScope.launch {
+            _signInState.update { it.copy(isLoginInProgress = true) }
 
             googleAuthUiClient.getIdToken(context, true)
                 .onSuccess { idToken ->
@@ -47,14 +49,17 @@ class LoginViewModel @Inject constructor(
                         .onSuccess {
                             _signInState.value = _signInState.value.copy(
                                 isSignInSuccessful = true,
+                                isLoginInProgress = false
                             )
                         }.onFailure {
-
+                            _signInState.value = _signInState.value.copy(
+                                isLoginInProgress = false
+                            )
                         }
 
                 }
                 .onFailure {
-
+                    _signInState.update { it.copy(isLoginInProgress = false) }
                 }
         }
     }

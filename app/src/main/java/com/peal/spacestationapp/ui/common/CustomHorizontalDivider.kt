@@ -1,4 +1,4 @@
-package com.peal.spacestationapp.ui.home.components
+package com.peal.spacestationapp.ui.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

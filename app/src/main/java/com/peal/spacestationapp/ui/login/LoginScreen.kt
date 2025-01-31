@@ -5,10 +5,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -27,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.peal.spacestationapp.R
 import com.peal.spacestationapp.domain.model.AuthenticationType
+import com.peal.spacestationapp.ui.common.CustomCircularProgressIndicator
 
 
 /**
@@ -56,6 +59,7 @@ fun LoginScreen(
         AuthenticationButton(
             text = stringResource(R.string.sign_in_with_google),
             icon = R.drawable.ic_google,
+            logInState.isLoginInProgress
         ) {
             onIntent(LoginScreenIntent.OnSignInRequest(AuthenticationType.Google, context))
         }
@@ -66,6 +70,7 @@ fun LoginScreen(
 fun AuthenticationButton(
     text: String,
     @DrawableRes icon: Int,
+    isLoginInProgress: Boolean,
     onClick: () -> Unit,
 ) {
     Row(
@@ -73,7 +78,9 @@ fun AuthenticationButton(
             .fillMaxWidth()
             .clip(shape = RoundedCornerShape(8.dp))
             .clickable {
-                onClick.invoke()
+                if (!isLoginInProgress) {
+                    onClick.invoke()
+                }
             }
             .background(color = MaterialTheme.colorScheme.surface)
             .padding(vertical = 15.dp)
@@ -95,6 +102,14 @@ fun AuthenticationButton(
             fontSize = 16.sp,
             modifier = Modifier.padding(start = 12.dp)
         )
+
+        if (isLoginInProgress) {
+            Spacer(modifier = Modifier.weight(1f))
+            CustomCircularProgressIndicator(
+                modifier = Modifier.size(30.dp),
+                strokeWidth = 2.dp
+            )
+        }
     }
 
 }
