@@ -9,7 +9,7 @@ A modern Android application that tracks the real-time location of the **Interna
 - **Firebase Authentication** - Secure user authentication
 - **Hilt** - Dependency injection
 - **Retrofit** - API calls
-- **Jetpack Compose** (optional) - Modern UI
+- **Jetpack Compose** - Modern UI
 
 ## 📌 Features
 
