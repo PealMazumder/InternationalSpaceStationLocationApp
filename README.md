@@ -1,4 +1,29 @@
-# SpaceStationApp
+A modern Android application that tracks the real-time location of the **International Space Station (ISS)**. Built with **Clean Architecture** and **MVI (Model-View-Intent)** for maintainability and scalability.
+
+## 🛠️ Tech Stack
+
+- **Kotlin** - Primary language
+- **Clean Architecture** - Separation of concerns
+- **MVI (Model-View-Intent)** - Unidirectional data flow
+- **Coroutines & Flow** - Asynchronous programming
+- **Firebase Authentication** - Secure user authentication
+- **Hilt** - Dependency injection
+- **Retrofit** - API calls
+- **Jetpack Compose** (optional) - Modern UI
+
+## 📌 Features
+
+- 🔭 **Track ISS Location** in real time
+- 🌍 **View ISS Coordinates** (Latitude, Longitude)
+- 🔐 **User Authentication** via Firebase
+- 📡 **Network Calls** using Retrofit
+- 🔄 **Reactive State Management** with Flow
+- 🏗 **Scalable & Modular** Clean Architecture
+
+## 🏗 Architecture Overview
+
+The project follows **Clean Architecture** principles:
+
 
 ## Prerequisites
 
